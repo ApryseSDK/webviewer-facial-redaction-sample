@@ -6,6 +6,8 @@
     "cancel": "Cancelar",
     "clear": "Limpar",
     "close": "Fechar",
+    "undo": "Desfazer",
+    "redo": "pronto",
     "comment": "Novo comentário",
     "copy": "Copiar",
     "delete": "Apagar",
@@ -20,13 +22,18 @@
     "fitToPage": "Ajustar à página",
     "fitToWidth": "Ajustar à largura",
     "openFile": "Abrir arquivo",
+    "pagePrev": "Página anterior",
+    "pageNext": "Próxima página",
+    "pageSet": "Definir página",
     "print": "Imprimir",
+    "name": "Nome",
     "ok": "OK",
     "reply": "Responder",
     "rotate": "Girar",
     "rotateClockwise": "Sentido horário",
     "rotateCounterClockwise": "Sentido anti-horário",
     "save": "Salvar",
+    "post": "Postar",
     "create": "Criar",
     "showMoreResults": "Mostrar mais resultados",
     "sign": "Assinar",
@@ -35,11 +42,19 @@
     "zoom": "Zoom",
     "zoomIn": "Aproximar",
     "zoomOut": "Afastar",
+    "zoomSet": "Definir zoom",
+    "zoomControls": "Controles de zoom",
     "draw": "Desenhar",
     "type": "Tipo",
     "upload": "Envio",
     "link": "Ligação",
-    "fileAttachmentDownload": "Baixar arquivo anexado"
+    "darkMode": "Modo escuro",
+    "lightMode": "Modo de luz",
+    "fileAttachmentDownload": "Baixar arquivo anexado",
+    "prevResult": "Resultado anterior",
+    "nextResult": "Próximo resultado",
+    "prev": "Anterior",
+    "next": "Próximo"
   },
   "annotation": {
     "areaMeasurement": "Medição de área",
@@ -48,15 +63,13 @@
     "crop": "Cortar página",
     "caret": "Cursor",
     "distanceMeasurement": "Medição de distância",
+    "countMeasurement": "Medição de contagem",
     "ellipse": "Elipse",
     "eraser": "Apagador",
     "fileattachment": "Anexo de arquivo",
     "freehand": "Mão livre",
-    "freehand2": "Mão livre",
     "freetext": "Texto livre",
-    "freetext2": "Texto livre",
     "highlight": "Destacar",
-    "highlight2": "Destacar",
     "line": "Linha",
     "perimeterMeasurement": "Medição de perímetro",
     "polygon": "Polígono",
@@ -99,27 +112,26 @@
     "SBRejected": "Rejeitado"
   },
   "component": {
-    "freehandToolsButton": "Ferramentas mão livre",
     "leftPanel": "Painel",
+    "toolsHeader": "Ferramentas",
     "searchOverlay": "Procurar",
+    "searchPanel": "Procurar",
     "menuOverlay": "Menu",
-    "miscToolsButton": "Ferramentas diversas",
     "notesPanel": "Anotações",
     "outlinesPanel": "Esquemas",
     "bookmarksPanel": "Favoritos",
     "newBookmark": "Novo marcador",
     "bookmarkPage": "Página",
     "layersPanel": "Camadas",
-    "shapeToolsButton": "Ferramentas de forma",
-    "textToolsButton": "Ferramentas de texto",
     "thumbnailsPanel": "Miniaturas",
     "toolsButton": "Ferramentas",
     "redaction": "Supressão",
     "viewControlsOverlay": "Controles de visualização",
-    "measurementToolsButton": "Ferramentas de medição",
-    "calibration": "Calibração"
+    "calibration": "Calibração",
+    "createStampButton": "Criar novo carimbo"
   },
   "message": {
+    "toolsOverlayNoPresets": "Sem predefinições",
     "badDocument": "Falha ao carregar documento. O documento está corrompido ou não é válido.",
     "customPrintPlaceholder": "p. ex. 3, 4-10",
     "encryptedAttemptsExceeded": "Falha ao carregar documento criptografado. Tentativas demais.",
@@ -129,6 +141,7 @@
     "noAnnotations": "Esse documento não tem anotações.",
     "noOutlines": "Esse documento não tem esquema.",
     "noResults": "Nenhum resultado encontrado.",
+    "numResultsFound": "resultados encontrados",
     "notSupported": "Esse tipo de arquivo não é compatível.",
     "passwordRequired": "Senha obrigatória",
     "preparingToPrint": "Preparando impressão...",
@@ -138,7 +151,8 @@
     "printTotalPageCount_plural": "{{count}} páginas",
     "processing": "Processando...",
     "searching": "Procurando...",
-    "searchPlaceholder": "Buscar comentários...",
+    "searchCommentsPlaceholder": "Pesquisar comentários",
+    "searchDocumentPlaceholder": "Pesquisar documento",
     "signHere": "Assine aqui",
     "insertTextHere": "Insira texto aqui",
     "imageSignatureAcceptedFileTypes": "Somente {{acceptFileTypes}} são aceitos",
@@ -146,6 +160,18 @@
     "linkURLorPage": "URL do link ou uma página"
   },
   "option": {
+    "notesOrder": {
+      "position": "Posição",
+      "time": "Tempo"
+    },
+    "toolbarGroup": {
+      "toolbarGroup-View": "Visão",
+      "toolbarGroup-Annotate": "Anotar",
+      "toolbarGroup-Shapes": "Formas",
+      "toolbarGroup-Insert": "Inserir",
+      "toolbarGroup-Measure": "A medida",
+      "toolbarGroup-Edit": "Editar"
+    },
     "annotationColor": {
       "StrokeColor": "Cor da borda",
       "FillColor": "Cor de preenchimento",
@@ -164,8 +190,6 @@
       "single": "Único"
     },
     "notesPanel": {
-      "orderPosition": "Posição",
-      "orderTime": "Hora",
       "separator": {
         "today": "Hoje",
         "yesterday": "Ontem"
@@ -179,6 +203,7 @@
       "all": "Todas",
       "current": "Atual",
       "pages": "Páginas",
+      "includeAnnotations": "Incluir anotações",
       "includeComments": "Incluir comentários",
       "addWatermarkSettings": "Adicionar configurações de marca d'água"
     },
@@ -189,6 +214,9 @@
       "caseSensitive": "Diferenciar maiúsculas e minúsculas",
       "wholeWordOnly": "Palavra inteira",
       "wildcard": "Curinga"
+    },
+    "stampOverlay": {
+      "addStamp": "Adicionar novo carimbo"
     },
     "signatureOverlay": {
       "addSignature": "Adicionar assinatura"
@@ -220,7 +248,9 @@
       "distanceMeasurement": "Medição de distância",
       "perimeterMeasurement": "Medição de perímetro",
       "areaMeasurement": "Medição de área",
-      "radius": "Raio"
+      "countMeasurement": "Medição de contagem",
+      "radius": "Raio",
+      "count": "Contagem"
     },
     "measurementOption": {
       "scale": "Escala"
@@ -237,7 +267,8 @@
     },
     "shared": {
       "page": "Página",
-      "precision": "Precisão"
+      "precision": "Precisão",
+      "enableSnapping": "Ativar encaixe para ferramentas de medição"
     },
     "watermark": {
       "size": "Tamanho",
@@ -250,13 +281,22 @@
     "thumbnailPanel": {
       "delete": "Excluir",
       "rotateClockwise": "Sentido horário",
-      "rotateCounterClockwise": "Sentido anti-horário"
+      "rotateCounterClockwise": "Sentido anti-horário",
+      "extractZeroPageError": "Nenhuma página foi selecionada para extrair"
     },
     "richText": {
       "bold": "Negrito",
       "italic": "itálico",
       "underline": "Sublinhar",
       "strikeout": "Tachado"
+    },
+    "customStampModal": {
+      "stampText": "Texto do carimbo:",
+      "timestampText": "Texto do carimbo de data / hora:",
+      "stampColor": "Cor do carimbo:",
+      "Username": "Nome do usuário",
+      "Date": "Encontro",
+      "Time": "Tempo"
     }
   },
   "warning": {
@@ -289,6 +329,8 @@
     "signature": "(S)",
     "squiggly": "(G)",
     "stamp": "(I)",
+    "redo": "(Ctrl Shift Z)",
+    "undo": "(Ctrl Z)",
     "stickyNote": "(N)",
     "strikeout": "(K)",
     "underline": "(U)",
@@ -302,10 +344,12 @@
     }
   },
   "tool": {
-    "pan": "Pan",
+    "pan": "Arrastar",
     "select": "Selecionar",
-    "Marquee": "Zoom Marquee",
-    "Link": "URL ou página do link"
+    "Marquee": "Marcar área",
+    "Link": "URL ou página do link",
+    "Standard": "Padrão",
+    "Custom": "personalizadas"
   },
   "link": {
     "url": "URL",

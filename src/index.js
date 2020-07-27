@@ -65,14 +65,13 @@ function createFaceRedactionAnnotation(webViewerInstance, pageNumber, faceDetect
  */
 function detectAndRedactFacesFromPage(webViewerInstance, pageNumber){
   return new Promise(function(resolve, reject){
-    const pageIndex = pageNumber - 1;
     const doc = webViewerInstance.docViewer.getDocument();
-    const pageInfo = doc.getPageInfo(pageIndex);
+    const pageInfo = doc.getPageInfo(pageNumber);
     const displaySize = { width: pageInfo.width, height: pageInfo.height }
     // face-api.js is detecting faces from images, so we need to convert current page to a canvas which then can
     // be converted to an image.
     doc.loadCanvasAsync({
-      pageIndex,
+      pageNumber,
       zoom: 0.5, // Scale page size down to allow faster image processing
       drawComplete: function drawComplete(canvas) {
         convertCanvasToImage(canvas).then(async (image) => {
