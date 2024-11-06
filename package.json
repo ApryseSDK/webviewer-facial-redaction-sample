@@ -7,7 +7,7 @@
     "postinstall": "node tools/copy-webviewer-files.js"
   },
   "devDependencies": {
-    "fs-extra": "^9.0.0",
+    "fs-extra": "^11.2.0",
     "@pdftron/webviewer": "^11.0.0"
   },
   "repository": {

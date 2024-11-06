@@ -117,18 +117,35 @@ function onRedactFacesButtonClickFactory(webViewerInstance) {
  * @param {function} onRedactFacesButtonClick Click handler executed when custom redact faces button is clicked
  */
 function addRedactFacesButtonToHeader(webViewerInstance, onRedactFacesButtonClick) {
-  webViewerInstance.UI.setHeaderItems(function setHeaderItemsCallback(header) {
-    const image = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clip-rule="evenodd"></path></svg>';
-    const items = header.getItems();
-    const redactButton = {
-      type: 'actionButton',
-      img: image,
-      title: 'Redact faces',
-      onClick: onRedactFacesButtonClick,
-    };
-    items.splice(10, 0, redactButton);
-    header.update(items);
+  const image = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clip-rule="evenodd"></path></svg>';
+
+  /** Legacy UI: Uncomment this to add the button to the header */
+  // webViewerInstance.UI.setHeaderItems(function setHeaderItemsCallback(header) {
+  //   const items = header.getItems();
+  //   const redactButton = {
+  //     type: 'actionButton',
+  //     img: image,
+  //     title: 'Redact faces',
+  //     onClick: onRedactFacesButtonClick,
+  //   };
+  //   items.splice(10, 0, redactButton);
+  //   header.update(items);
+  // });
+  /** End of Legacy UI */
+
+
+  /** Modular UI: Add the button to the header */
+  // Comment this out on legacy UI
+  const redactFacesButton = new webViewerInstance.UI.Components.CustomButton({
+    dataElement: 'customButton',
+    title: 'Redact faces',
+    img: image,
+    onClick: onRedactFacesButtonClick,
   });
+  const defaultHeader = webViewerInstance.UI.getModularHeader('default-top-header');
+  const groupedItems = defaultHeader.getItems('groupedItems')[0];
+  groupedItems.setItems([...groupedItems.items, redactFacesButton]);
+  /** End of Modular UI */
 }
 
 // Load face-api.js model
@@ -141,7 +158,7 @@ WebViewer(
     fullAPI: true,
     enableRedaction: true,
     enableFilePicker: true,
-    ui: 'legacy',
+    // ui: 'legacy',
     initialDoc: '/pdftron-people.pdf'
   },
   document.getElementById('viewer')
