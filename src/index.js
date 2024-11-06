@@ -4,8 +4,8 @@
  * @param {Canvas} canvas Canvas from which Image is created
  * @returns {Promise} Resolving to HTMLImageElement
  */
-function convertCanvasToImage(canvas){
-  return new Promise(function(resolve){
+function convertCanvasToImage(canvas) {
+  return new Promise(function(resolve) {
     const base64ImageDataURL = canvas.toDataURL('image/jpeg');
     const image = new Image()
     image.onload = () => {
@@ -26,9 +26,9 @@ function convertCanvasToImage(canvas){
  * @param {Number} pageNumber Page number of the document where detections were found
  * @param {FaceDetection[]} faceDetections Faces that were detected by face-api.js
  */
-function createFaceRedactionAnnotation(webViewerInstance, pageNumber, faceDetections){
-  if(faceDetections && faceDetections.length > 0){
-    const { Annotations, annotManager } = webViewerInstance;
+function createFaceRedactionAnnotation(webViewerInstance, pageNumber, faceDetections) {
+  if (faceDetections && faceDetections.length > 0) {
+    const { Annotations, annotationManager } = webViewerInstance.Core;
     // We create a quad per detected face to allow us use only one redaction annotation.
     // You could create new RedactionAnnotation for each detected face, but in case where document contains
     // tens or hundreds of face applying reduction comes slow.
@@ -48,12 +48,12 @@ function createFaceRedactionAnnotation(webViewerInstance, pageNumber, faceDetect
     const faceAnnotation = new Annotations.RedactionAnnotation({
       Quads: quads,
     });
-    faceAnnotation.Author = annotManager.getCurrentUser();
+    faceAnnotation.Author = annotationManager.getCurrentUser();
     faceAnnotation.PageNumber = pageNumber;
     faceAnnotation.StrokeColor = new Annotations.Color(255, 0, 0, 1);
-    annotManager.addAnnotation(faceAnnotation, false);
+    annotationManager.addAnnotation(faceAnnotation, false);
     // Annotation needs to be redrawn so that it becomes visible immediately rather than on next time page is refreshed
-    annotManager.redrawAnnotation(faceAnnotation);
+    annotationManager.redrawAnnotation(faceAnnotation);
   }
 }
 
@@ -63,14 +63,14 @@ function createFaceRedactionAnnotation(webViewerInstance, pageNumber, faceDetect
  * @param {Number} pageNumber Page number of the document where detection is ran
  * @returns {Promise} Resolves after faces are detected and RedactionAnnotations are added to document
  */
-function detectAndRedactFacesFromPage(webViewerInstance, pageNumber){
-  return new Promise(function(resolve, reject){
-    const doc = webViewerInstance.docViewer.getDocument();
+function detectAndRedactFacesFromPage(webViewerInstance, pageNumber) {
+  return new Promise(function(resolve, reject) {
+    const doc = webViewerInstance.Core.documentViewer.getDocument();
     const pageInfo = doc.getPageInfo(pageNumber);
     const displaySize = { width: pageInfo.width, height: pageInfo.height }
     // face-api.js is detecting faces from images, so we need to convert current page to a canvas which then can
     // be converted to an image.
-    doc.loadCanvasAsync({
+    doc.loadCanvas({
       pageNumber,
       zoom: 0.5, // Scale page size down to allow faster image processing
       drawComplete: function drawComplete(canvas) {
@@ -96,13 +96,13 @@ function detectAndRedactFacesFromPage(webViewerInstance, pageNumber){
  * @param {WebViewerInstance} webViewerInstance current instance on WebViewer
  * @returns {function} returns async click handler for redact faces button
  */
-function onRedactFacesButtonClickFactory(webViewerInstance){
-  return async function onRedactFacesButtonClick(){
-    const doc = webViewerInstance.docViewer.getDocument();
+function onRedactFacesButtonClickFactory(webViewerInstance) {
+  return async function onRedactFacesButtonClick() {
+    const doc = webViewerInstance.Core.documentViewer.getDocument();
     const numberOfPages = doc.getPageCount();
     const { sendPageProcessing, showProgress, hideProgress } = createProgress(numberOfPages)
     showProgress();
-    for(let pageNumber=1; pageNumber <= numberOfPages; pageNumber++){
+    for (let pageNumber = 1; pageNumber <= numberOfPages; pageNumber++) {
       sendPageProcessing();
       await detectAndRedactFacesFromPage(webViewerInstance, pageNumber);
     }
@@ -117,7 +117,7 @@ function onRedactFacesButtonClickFactory(webViewerInstance){
  * @param {function} onRedactFacesButtonClick Click handler executed when custom redact faces button is clicked
  */
 function addRedactFacesButtonToHeader(webViewerInstance, onRedactFacesButtonClick) {
-  webViewerInstance.setHeaderItems(function setHeaderItemsCallback(header){
+  webViewerInstance.UI.setHeaderItems(function setHeaderItemsCallback(header) {
     const image = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clip-rule="evenodd"></path></svg>';
     const items = header.getItems();
     const redactButton = {
@@ -141,17 +141,13 @@ WebViewer(
     fullAPI: true,
     enableRedaction: true,
     enableFilePicker: true,
+    ui: 'legacy',
     initialDoc: '/pdftron-people.pdf'
   },
   document.getElementById('viewer')
-).then(function(webViewerInstance){
-  const FitMode = webViewerInstance.FitMode;
-  webViewerInstance.setFitMode(FitMode.FitWidth);
+).then(function(webViewerInstance) {
+  const FitMode = webViewerInstance.UI.FitMode;
+  webViewerInstance.UI.setFitMode(FitMode.FitWidth);
   const onRedactFacesButtonClick = onRedactFacesButtonClickFactory(webViewerInstance);
   addRedactFacesButtonToHeader(webViewerInstance, onRedactFacesButtonClick)
 });
-
-
-
-
-
