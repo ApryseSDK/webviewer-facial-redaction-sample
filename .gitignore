@@ -2,6 +2,9 @@
 # Created by https://www.toptal.com/developers/gitignore/api/node,macos,webstorm,visualstudiocode,windows,linux
 # Edit at https://www.toptal.com/developers/gitignore?templates=node,macos,webstorm,visualstudiocode,windows,linux
 
+# WebViewer
+lib
+
 ### Linux ###
 *~
 
